@@ -1,9 +1,9 @@
 /* add your code here */
 #include <IOKit/IOService.h>
 
-class AMDGPUWakeHandler : public IOService
+class NVDAGPUWakeHandler : public IOService
 {
-    OSDeclareDefaultStructors(AMDGPUWakeHandler)
+    OSDeclareDefaultStructors(NVDAGPUWakeHandler)
 public:
     virtual bool init(OSDictionary *dictionary = 0);
     virtual void free(void);
@@ -13,4 +13,5 @@ public:
     virtual IOReturn setPowerState(unsigned long whichState, IOService * whatDevice);
 private:
     virtual void disableGPU();
+    virtual void setBrightness();
 };
