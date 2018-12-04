@@ -34,6 +34,8 @@
 #define GMUX_DISCRETE_POWER_ON      0x1
 #define GMUX_DISCRETE_POWER_OFF     0x0
 
+static uint32_t brightess = GMUX_MAX_BRIGHTNESS;
+
 // This required macro defines the class's constructors, destructors,
 // and several other methods I/O Kit requires.
 OSDefineMetaClassAndStructors(NVDAGPUWakeHandler, IOService)
@@ -123,12 +125,25 @@ static void gmux_write32(uint16_t port, uint32_t val)
     gmux_index_wait_complete();
 }
 
+//
+void RegisterController();
+void UnregisterController();
+
+int setBrightness(int value = brightess)
+{
+    IOLog("Setting brightness:%d (command)\n", value);
+    brightess = value;
+    gmux_write32(GMUX_PORT_BRIGHTNESS, value);
+    return 0;
+}
+
 // Define the driver's superclass.
 #define super IOService
 
 bool NVDAGPUWakeHandler::init(OSDictionary *dict)
 {
     bool result = super::init(dict);
+    RegisterController();
     IOLog("Initializing\n");
     return result;
 }
@@ -136,6 +151,7 @@ bool NVDAGPUWakeHandler::init(OSDictionary *dict)
 void NVDAGPUWakeHandler::free(void)
 {
     IOLog("Freeing\n");
+    UnregisterController();
     super::free();
 }
 
@@ -184,12 +200,6 @@ void NVDAGPUWakeHandler::disableGPU()
     gmux_write8(GMUX_PORT_DISCRETE_POWER, GMUX_DISCRETE_POWER_OFF);
 }
 
-void NVDAGPUWakeHandler::setBrightness()
-{
-    IOLog("Setting brightness\n");
-    gmux_write32(GMUX_PORT_BRIGHTNESS, GMUX_MAX_BRIGHTNESS);
-}
-
 IOReturn NVDAGPUWakeHandler::setPowerState ( unsigned long whichState, IOService * whatDevice )
 {
     if ( whichState != kIOPMPowerOff ) {
@@ -202,7 +212,7 @@ IOReturn NVDAGPUWakeHandler::setPowerState ( unsigned long whichState, IOService
         // Thanks to @andywarduk in https://github.com/blackgate/AMDGPUWakeHandler/pull/1
         // for the idea.
         for(int i = 0; i < 20; i++) {
-            this->setBrightness();
+            setBrightness();
             IOSleep(500);
         }
     } else {
