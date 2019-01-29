@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C955B721FADF33500EFC963 /* NVDAGPUWakeHandler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C955B711FADF33500EFC963 /* NVDAGPUWakeHandler.hpp */; };
 		0C955B741FADF33500EFC963 /* NVDAGPUWakeHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C955B731FADF33500EFC963 /* NVDAGPUWakeHandler.cpp */; };
+		1F1624EF22009D1800D5B67F /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F1624EE22009D1800D5B67F /* Controller.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,6 +18,7 @@
 		0C955B711FADF33500EFC963 /* NVDAGPUWakeHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NVDAGPUWakeHandler.hpp; sourceTree = "<group>"; };
 		0C955B731FADF33500EFC963 /* NVDAGPUWakeHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NVDAGPUWakeHandler.cpp; sourceTree = "<group>"; };
 		0C955B751FADF33500EFC963 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F1624EE22009D1800D5B67F /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 		0C955B701FADF33500EFC963 /* NVDAGPUWakeHandler */ = {
 			isa = PBXGroup;
 			children = (
+				1F1624EE22009D1800D5B67F /* Controller.cpp */,
 				0C955B711FADF33500EFC963 /* NVDAGPUWakeHandler.hpp */,
 				0C955B731FADF33500EFC963 /* NVDAGPUWakeHandler.cpp */,
 				0C955B751FADF33500EFC963 /* Info.plist */,
@@ -137,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C955B741FADF33500EFC963 /* NVDAGPUWakeHandler.cpp in Sources */,
+				1F1624EF22009D1800D5B67F /* Controller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
