@@ -34,7 +34,7 @@
 #define GMUX_DISCRETE_POWER_ON      0x1
 #define GMUX_DISCRETE_POWER_OFF     0x0
 
-static uint32_t brightess = GMUX_MAX_BRIGHTNESS;
+static uint32_t brightness = GMUX_MAX_BRIGHTNESS;
 
 // This required macro defines the class's constructors, destructors,
 // and several other methods I/O Kit requires.
@@ -49,13 +49,6 @@ static inline uint8_t inb(uint16_t port)
 {
     uint8_t ret;
     asm volatile ("inb %1, %0" : "=a"(ret) : "Nd"(port));
-    return ret;
-}
-
-static inline uint32_t inl(uint16_t port)
-{
-    uint32_t ret;
-    asm volatile ("inl %1, %0" : "=a"(ret) : "Nd"(port));
     return ret;
 }
 
@@ -129,10 +122,10 @@ static void gmux_write32(uint16_t port, uint32_t val)
 void RegisterController();
 void UnregisterController();
 
-int setBrightness(int value = brightess)
+int setBrightness(int value = brightness)
 {
     IOLog("Setting brightness:%d (command)\n", value);
-    brightess = value;
+    brightness = value;
     gmux_write32(GMUX_PORT_BRIGHTNESS, value);
     return 0;
 }
