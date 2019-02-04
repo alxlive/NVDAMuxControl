@@ -20,10 +20,24 @@ menuentry "macOS" {
   outb 0x7d4 0x50
   outb 0x7c2 0
   outb 0x7d4 0x50
+  exit
 }
 ```
 
 See [this gist](https://gist.github.com/blackgate/17ac402e35d2f7e0f1c9708db3dc7a44) for more info on how to set up booting from Grub.
+
+## Build with Xcode
+
+To build the kext with Xcode you must disable SIP. Running recovery mode may be difficult with the broken NVIDIA GPU, you could try to create a macOS usb stick and run it to disable SIP.
+
+To build the kext make sure the OSBundle versions in the Info.plist file match the kernel version of your system.
+
+To check your kernel version run from terminal:
+
+```
+system_profiler SPSoftwareDataType
+```
+
 
 ## Installation
 
@@ -62,3 +76,7 @@ To view the logs for the last 24 hours run the following on the terminal:
 ```
 log show --last 24h --predicate 'senderImagePath contains "NVDAGPUWakeHandler"'
 ```
+
+## Brightness control
+
+To enable brightness control, after loading this kext, you can run [NativeDisplayBrightness](https://github.com/TankTheFrank/NativeDisplayBrightness)
