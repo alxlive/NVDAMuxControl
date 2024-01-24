@@ -1,0 +1,2 @@
+pybind11==2.11.1
+pyinstaller==6.3.0

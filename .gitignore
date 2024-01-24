@@ -1,4 +1,6 @@
 xcuserdata/
 *.bak
 .DS_Store
-kext/build/
+*/build/
+*/dist/
+venv
