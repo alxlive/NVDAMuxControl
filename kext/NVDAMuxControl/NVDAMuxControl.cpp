@@ -67,7 +67,7 @@
 #define BRIGHTNESS_DOWN             -200
 
 // Brightness will be set to this value when kext first loaded.
-static uint32_t brightness = 450;
+static uint32_t brightness = 500;
 
 // This required macro defines the class's constructors, destructors,
 // and several other methods I/O Kit requires.
