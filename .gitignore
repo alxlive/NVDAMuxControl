@@ -1,1 +1,4 @@
 xcuserdata/
+*.bak
+.DS_Store
+kext/build/

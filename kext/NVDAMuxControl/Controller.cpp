@@ -1,6 +1,6 @@
 //
 //  Controller.cpp
-//  NVDAGPUWakeHandler
+//  NVDAMuxControl
 //
 //
 

@@ -4,7 +4,7 @@
 // https://github.com/blackgate/AMDGPUWakeHandler
 
 #include <IOKit/IOLib.h>
-#include "NVDAGPUWakeHandler.hpp"
+#include "NVDAMuxControl.hpp"
 
 #define kMyNumberOfStates 2
 #define kIOPMPowerOff 0
@@ -38,7 +38,7 @@ static uint32_t brightness = GMUX_MAX_BRIGHTNESS;
 
 // This required macro defines the class's constructors, destructors,
 // and several other methods I/O Kit requires.
-OSDefineMetaClassAndStructors(NVDAGPUWakeHandler, IOService)
+OSDefineMetaClassAndStructors(NVDAMuxControl, IOService)
 
 static inline void outb(uint16_t port, uint8_t value)
 {
@@ -133,7 +133,7 @@ int setBrightness(int value = brightness)
 // Define the driver's superclass.
 #define super IOService
 
-bool NVDAGPUWakeHandler::init(OSDictionary *dict)
+bool NVDAMuxControl::init(OSDictionary *dict)
 {
     bool result = super::init(dict);
     RegisterController();
@@ -141,7 +141,7 @@ bool NVDAGPUWakeHandler::init(OSDictionary *dict)
     return result;
 }
 
-void NVDAGPUWakeHandler::free(void)
+void NVDAMuxControl::free(void)
 {
     IOLog("Freeing\n");
     UnregisterController();
@@ -152,14 +152,14 @@ uint8_t get_discrete_state() {
     return gmux_read8(GMUX_PORT_DISCRETE_POWER);
 }
 
-IOService *NVDAGPUWakeHandler::probe(IOService *provider, SInt32 *score)
+IOService *NVDAMuxControl::probe(IOService *provider, SInt32 *score)
 {
     IOService *result = super::probe(provider, score);
     IOLog("Probing\n");
     return result;
 }
 
-bool NVDAGPUWakeHandler::start(IOService *provider)
+bool NVDAMuxControl::start(IOService *provider)
 {
     bool result = super::start(provider);
     IOLog("Starting\n");
@@ -175,14 +175,14 @@ bool NVDAGPUWakeHandler::start(IOService *provider)
     return result;
 }
 
-void NVDAGPUWakeHandler::stop(IOService *provider)
+void NVDAMuxControl::stop(IOService *provider)
 {
     IOLog("Stopping\n");
     PMstop();
     super::stop(provider);
 }
 
-void NVDAGPUWakeHandler::disableGPU()
+void NVDAMuxControl::disableGPU()
 {
     IOLog("Disabling GPU\n");
     gmux_write8(GMUX_PORT_INTERRUPT_ENABLE, GMUX_INTERRUPT_ENABLE);
@@ -193,7 +193,7 @@ void NVDAGPUWakeHandler::disableGPU()
     gmux_write8(GMUX_PORT_DISCRETE_POWER, GMUX_DISCRETE_POWER_OFF);
 }
 
-IOReturn NVDAGPUWakeHandler::setPowerState ( unsigned long whichState, IOService * whatDevice )
+IOReturn NVDAMuxControl::setPowerState ( unsigned long whichState, IOService * whatDevice )
 {
     if ( whichState != kIOPMPowerOff ) {
         IOLog("Waking up\n");

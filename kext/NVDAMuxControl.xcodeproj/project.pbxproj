@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C955B721FADF33500EFC963 /* NVDAGPUWakeHandler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C955B711FADF33500EFC963 /* NVDAGPUWakeHandler.hpp */; };
-		0C955B741FADF33500EFC963 /* NVDAGPUWakeHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C955B731FADF33500EFC963 /* NVDAGPUWakeHandler.cpp */; };
+		0C955B721FADF33500EFC963 /* NVDAMuxControl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C955B711FADF33500EFC963 /* NVDAMuxControl.hpp */; };
+		0C955B741FADF33500EFC963 /* NVDAMuxControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C955B731FADF33500EFC963 /* NVDAMuxControl.cpp */; };
 		1F1624EF22009D1800D5B67F /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F1624EE22009D1800D5B67F /* Controller.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0C3D150A1FAF27E3001B2D44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		0C955B6E1FADF33500EFC963 /* NVDAGPUWakeHandler.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NVDAGPUWakeHandler.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C955B711FADF33500EFC963 /* NVDAGPUWakeHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NVDAGPUWakeHandler.hpp; sourceTree = "<group>"; };
-		0C955B731FADF33500EFC963 /* NVDAGPUWakeHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NVDAGPUWakeHandler.cpp; sourceTree = "<group>"; };
+		0C955B6E1FADF33500EFC963 /* NVDAMuxControl.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NVDAMuxControl.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C955B711FADF33500EFC963 /* NVDAMuxControl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NVDAMuxControl.hpp; sourceTree = "<group>"; };
+		0C955B731FADF33500EFC963 /* NVDAMuxControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NVDAMuxControl.cpp; sourceTree = "<group>"; };
 		0C955B751FADF33500EFC963 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F1624EE22009D1800D5B67F /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -36,7 +36,7 @@
 			isa = PBXGroup;
 			children = (
 				0C3D150A1FAF27E3001B2D44 /* README.md */,
-				0C955B701FADF33500EFC963 /* NVDAGPUWakeHandler */,
+				0C955B701FADF33500EFC963 /* NVDAMuxControl */,
 				0C955B6F1FADF33500EFC963 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,20 +44,20 @@
 		0C955B6F1FADF33500EFC963 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0C955B6E1FADF33500EFC963 /* NVDAGPUWakeHandler.kext */,
+				0C955B6E1FADF33500EFC963 /* NVDAMuxControl.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0C955B701FADF33500EFC963 /* NVDAGPUWakeHandler */ = {
+		0C955B701FADF33500EFC963 /* NVDAMuxControl */ = {
 			isa = PBXGroup;
 			children = (
 				1F1624EE22009D1800D5B67F /* Controller.cpp */,
-				0C955B711FADF33500EFC963 /* NVDAGPUWakeHandler.hpp */,
-				0C955B731FADF33500EFC963 /* NVDAGPUWakeHandler.cpp */,
+				0C955B711FADF33500EFC963 /* NVDAMuxControl.hpp */,
+				0C955B731FADF33500EFC963 /* NVDAMuxControl.cpp */,
 				0C955B751FADF33500EFC963 /* Info.plist */,
 			);
-			path = NVDAGPUWakeHandler;
+			path = NVDAMuxControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -67,16 +67,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C955B721FADF33500EFC963 /* NVDAGPUWakeHandler.hpp in Headers */,
+				0C955B721FADF33500EFC963 /* NVDAMuxControl.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0C955B6D1FADF33500EFC963 /* NVDAGPUWakeHandler */ = {
+		0C955B6D1FADF33500EFC963 /* NVDAMuxControl */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0C955B781FADF33500EFC963 /* Build configuration list for PBXNativeTarget "NVDAGPUWakeHandler" */;
+			buildConfigurationList = 0C955B781FADF33500EFC963 /* Build configuration list for PBXNativeTarget "NVDAMuxControl" */;
 			buildPhases = (
 				0C955B691FADF33500EFC963 /* Sources */,
 				0C955B6A1FADF33500EFC963 /* Frameworks */,
@@ -87,9 +87,9 @@
 			);
 			dependencies = (
 			);
-			name = NVDAGPUWakeHandler;
+			name = NVDAMuxControl;
 			productName = AMDGPUWakeHandler;
-			productReference = 0C955B6E1FADF33500EFC963 /* NVDAGPUWakeHandler.kext */;
+			productReference = 0C955B6E1FADF33500EFC963 /* NVDAMuxControl.kext */;
 			productType = "com.apple.product-type.kernel-extension";
 		};
 /* End PBXNativeTarget section */
@@ -107,7 +107,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0C955B681FADF33400EFC963 /* Build configuration list for PBXProject "NVDAGPUWakeHandler" */;
+			buildConfigurationList = 0C955B681FADF33400EFC963 /* Build configuration list for PBXProject "NVDAMuxControl" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -119,7 +119,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0C955B6D1FADF33500EFC963 /* NVDAGPUWakeHandler */,
+				0C955B6D1FADF33500EFC963 /* NVDAMuxControl */,
 			);
 		};
 /* End PBXProject section */
@@ -139,7 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C955B741FADF33500EFC963 /* NVDAGPUWakeHandler.cpp in Sources */,
+				0C955B741FADF33500EFC963 /* NVDAMuxControl.cpp in Sources */,
 				1F1624EF22009D1800D5B67F /* Controller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,20 +257,21 @@
 		0C955B791FADF33500EFC963 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				ARCHS = x86_64;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
-				DEVELOPMENT_TEAM = ZXH55DH27Y;
-				INFOPLIST_FILE = "$(SRCROOT)/NVDAGPUWakeHandler/Info.plist";
+				DEVELOPMENT_TEAM = 4PJW568T99;
+				INFOPLIST_FILE = "$(SRCROOT)/NVDAMuxControl/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULE_NAME = us.palpant.NVDAGPUWakeHandler;
+				MODULE_NAME = fr.alxlive.NVDAMuxControl;
 				MODULE_VERSION = 1.0.0d1;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-inconsistent-missing-override",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = us.palpant.NVDAGPUWakeHandler;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.alxlive.NVDAMuxControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -281,20 +282,21 @@
 		0C955B7A1FADF33500EFC963 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				ARCHS = x86_64;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
-				DEVELOPMENT_TEAM = ZXH55DH27Y;
-				INFOPLIST_FILE = "$(SRCROOT)/NVDAGPUWakeHandler/Info.plist";
+				DEVELOPMENT_TEAM = 4PJW568T99;
+				INFOPLIST_FILE = "$(SRCROOT)/NVDAMuxControl/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULE_NAME = us.palpant.NVDAGPUWakeHandler;
+				MODULE_NAME = fr.alxlive.NVDAMuxControl;
 				MODULE_VERSION = 1.0.0d1;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-inconsistent-missing-override",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = us.palpant.NVDAGPUWakeHandler;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.alxlive.NVDAMuxControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -305,7 +307,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0C955B681FADF33400EFC963 /* Build configuration list for PBXProject "NVDAGPUWakeHandler" */ = {
+		0C955B681FADF33400EFC963 /* Build configuration list for PBXProject "NVDAMuxControl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0C955B761FADF33500EFC963 /* Debug */,
@@ -314,7 +316,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0C955B781FADF33500EFC963 /* Build configuration list for PBXNativeTarget "NVDAGPUWakeHandler" */ = {
+		0C955B781FADF33500EFC963 /* Build configuration list for PBXNativeTarget "NVDAMuxControl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0C955B791FADF33500EFC963 /* Debug */,

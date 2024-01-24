@@ -1,9 +1,9 @@
 /* add your code here */
 #include <IOKit/IOService.h>
 
-class NVDAGPUWakeHandler : public IOService
+class NVDAMuxControl : public IOService
 {
-    OSDeclareDefaultStructors(NVDAGPUWakeHandler)
+    OSDeclareDefaultStructors(NVDAMuxControl)
 public:
     virtual bool init(OSDictionary *dictionary = 0);
     virtual void free(void);

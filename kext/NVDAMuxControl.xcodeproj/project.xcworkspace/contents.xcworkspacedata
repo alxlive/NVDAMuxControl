@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/timpalpant/src/NVDAGPUWakeHandler/NVDAGPUWakeHandler.xcodeproj">
+      location = "self:/Users/alxlive/projects/NVDAMuxControl/kext/NVDAMuxControl.xcodeproj">
    </FileRef>
 </Workspace>
