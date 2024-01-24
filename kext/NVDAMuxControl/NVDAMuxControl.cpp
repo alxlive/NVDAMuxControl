@@ -1,10 +1,32 @@
 // Based on the linux implementationn of apple-gmux
 // https://github.com/torvalds/linux/blob/master/drivers/platform/x86/apple-gmux.c
-// and adapted for Macbook Pro 10,1 (retina mid-2012) from
+
+// Forked from
+// https://github.com/timpalpant/NVDAGPUWakeHandler
+// itself forked from
 // https://github.com/blackgate/AMDGPUWakeHandler
+
+// Unload kext from /Library/Extensions directory:
+//    sudo kextunload /Library/Extensions/NVDAMuxControl.kext
+// Build and reload kext:
+//    cd <KEXT_DIR>
+//    sudo chown -R root:wheel NVDAMuxControl.kext
+//    sudo kextload NVDAMuxControl.kext
+// Check it’s loaded:
+//    kextstat | grep -i NVDAMuxControl
+// Check the logs of your kernel extension over last 24h:
+//    log show --last 24h --predicate 'senderImagePath contains "NVDAMuxControl"'
+// Unload:
+//    sudo kextunload /path/to/NVDAMuxControl.kext
+
 
 #include <IOKit/IOLib.h>
 #include "NVDAMuxControl.hpp"
+
+#include <sys/systm.h>
+#include <mach/mach_types.h>
+#include <mach/kern_return.h>
+#include <sys/kern_control.h>
 
 #define kMyNumberOfStates 2
 #define kIOPMPowerOff 0
@@ -25,7 +47,14 @@
 #define GMUX_PORT_MAX_BRIGHTNESS    0x70
 #define GMUX_PORT_BRIGHTNESS        0x74
 #define GMUX_BRIGHTNESS_MASK        0x00ffffff
+// Although the Linux kernel uses a much higher value for the
+// MAX (0xffff), the brightness of the screen doesn't actually
+// increase past 900.
 #define GMUX_MAX_BRIGHTNESS         900
+// Don't allow brightness to drop to 0, because in the absence
+// of hardware keys to bring it back up, one might get stuck
+// with a black screen with the Mac turned on.
+#define MIN_BRIGHTNESS              100
 
 #define GMUX_SWITCH_DDC_IGD         0x1
 #define GMUX_SWITCH_DISPLAY_IGD     0x2
@@ -34,7 +63,11 @@
 #define GMUX_DISCRETE_POWER_ON      0x1
 #define GMUX_DISCRETE_POWER_OFF     0x0
 
-static uint32_t brightness = GMUX_MAX_BRIGHTNESS;
+#define BRIGHTNESS_UP               -100
+#define BRIGHTNESS_DOWN             -200
+
+// Brightness will be set to this value when kext first loaded.
+static uint32_t brightness = 450;
 
 // This required macro defines the class's constructors, destructors,
 // and several other methods I/O Kit requires.
@@ -124,10 +157,67 @@ void UnregisterController();
 
 int setBrightness(int value = brightness)
 {
+    if (value < MIN_BRIGHTNESS || value > GMUX_MAX_BRIGHTNESS) {
+        IOLog("Invalid value for brightness: %d\n", value);
+        return 1;
+    }
     IOLog("Setting brightness:%d (command)\n", value);
     brightness = value;
     gmux_write32(GMUX_PORT_BRIGHTNESS, value);
     return 0;
+}
+
+int increaseBrightness()
+{
+    return setBrightness(brightness + 100);
+}
+
+int decreaseBrightness()
+{
+    return setBrightness(brightness - 100);
+}
+
+/* A simple setsockopt handler. */
+static errno_t EPHandleSet( kern_ctl_ref ctlref, unsigned int unit, void *userdata, int opt, void *data, size_t len )
+{
+    IOLog("EPHandleSet opt is %d\n", opt);
+    if (opt == BRIGHTNESS_UP) {
+        return increaseBrightness();
+    } else if (opt == BRIGHTNESS_DOWN) {
+        return decreaseBrightness();
+    }
+    return setBrightness(opt);
+}
+
+/* A simple getsockopt handler. */
+static errno_t EPHandleGet(kern_ctl_ref ctlref, unsigned int unit, void *userdata, int opt, void *data, size_t *len)
+{
+    errno_t error = EINVAL;
+    IOLog("EPHandleGet opt is %d *****************\n", opt);
+    return error;
+}
+
+/* A minimalist connect handler. */
+static errno_t
+EPHandleConnect(kern_ctl_ref ctlref, struct sockaddr_ctl *sac, void **unitinfo)
+{
+    IOLog("EPHandleConnect called\n");
+    return (0);
+}
+
+/* A minimalist disconnect handler. */
+static errno_t
+EPHandleDisconnect(kern_ctl_ref ctlref, unsigned int unit, void *unitinfo)
+{
+    IOLog("EPHandleDisconnect called\n");
+    return (0);
+}
+
+/* A minimalist write handler. */
+static errno_t EPHandleWrite(kern_ctl_ref ctlref, unsigned int unit, void *userdata, mbuf_t m, int flags)
+{
+    IOLog("EPHandleWrite called\n");
+    return (0);
 }
 
 // Define the driver's superclass.
@@ -172,12 +262,35 @@ bool NVDAMuxControl::start(IOService *provider)
 
     registerPowerDriver (this, myPowerStates, kMyNumberOfStates);
 
+    bzero(&ep_ctl, sizeof(ep_ctl));  // sets ctl_unit to 0
+    ep_ctl.ctl_id = 0; /* OLD STYLE: ep_ctl.ctl_id = kEPCommID; */
+    ep_ctl.ctl_unit = 0;
+    strcpy(ep_ctl.ctl_name, "fr.alxlive.NVDAMuxControl");
+    ep_ctl.ctl_flags = CTL_FLAG_PRIVILEGED & CTL_FLAG_REG_ID_UNIT;
+    ep_ctl.ctl_send = EPHandleWrite;
+    ep_ctl.ctl_getopt = EPHandleGet;
+    ep_ctl.ctl_setopt = EPHandleSet;
+    ep_ctl.ctl_connect = EPHandleConnect;
+    ep_ctl.ctl_disconnect = EPHandleDisconnect;
+    errno_t error = ctl_register(&ep_ctl, &kctlref);
+    if (!error) {
+        IOLog("ctl_register success, ctl_id is: %d\n", ep_ctl.ctl_id);
+    } else {
+        IOLog("ctl_register error: %d\n", error);
+    }
+
     return result;
 }
 
 void NVDAMuxControl::stop(IOService *provider)
 {
     IOLog("Stopping\n");
+    errno_t error = ctl_deregister(kctlref);
+    if (!error) {
+        IOLog("ctl_deregister success\n");
+    } else {
+        IOLog("ctl_deregister returned: %d\n", error);
+    }
     PMstop();
     super::stop(provider);
 }

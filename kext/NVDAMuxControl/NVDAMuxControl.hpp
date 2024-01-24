@@ -1,5 +1,6 @@
 /* add your code here */
 #include <IOKit/IOService.h>
+#include <sys/kern_control.h>
 
 class NVDAMuxControl : public IOService
 {
@@ -13,4 +14,7 @@ public:
     virtual IOReturn setPowerState(unsigned long whichState, IOService * whatDevice);
 private:
     virtual void disableGPU();
+
+    struct kern_ctl_reg ep_ctl;
+    kern_ctl_ref kctlref;
 };
