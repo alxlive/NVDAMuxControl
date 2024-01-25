@@ -2,12 +2,28 @@ import signal
 from functools import partial
 
 from pynput import keyboard
+import Quartz
 
-import build.KernelSocketLib
+import build.KernelSocketLib as KernelSocketLib
 
 
 SIGNUM_TO_SIGNAME = {signal_type.value: signal_type.name
                      for signal_type in signal.Signals}
+# Full list of codes from pynput codebase:
+#    https://github.com/moses-palmer/pynput/blob/master/lib/pynput/keyboard/_darwin.py#L174C5-L175C31
+F1_KEY = 0x7A
+F2_KEY = 0x78
+
+
+def darwin_intercept(event_type, event):
+    vk = Quartz.CGEventGetIntegerValueField(
+            event, Quartz.kCGKeyboardEventKeycode)
+    if vk == F1_KEY or vk == F2_KEY:
+        # Suppress keys F1 and F2, don't propagate them to the rest of the
+        # system.
+        return None
+    # Let all other keys propagate normally.
+    return event
 
 
 class BrightnessControl:
@@ -29,9 +45,14 @@ class BrightnessControl:
     self.listener = keyboard.Listener(
             on_press=self.on_press,
             on_release=self.on_release,
-            # Suppress the key so it doesn't propagate to foreground
-            # application.
-            suppress=True)
+            # We cannot use suppress=True, because that suppresses all
+            # keyboard events system-wide. Can't type anything anywhere!
+            suppress=False,
+            # Instead, we use a platform-specific filtering function to stop
+            # propagation of F1/F2 only.
+            # Pynput docs:
+            #    https://pynput.readthedocs.io/en/latest/faq.html#macos
+            darwin_intercept=darwin_intercept)
     # Start listening in a non-blocking fashion.
     self.listener.start()
     # Block until the listener has stopped.

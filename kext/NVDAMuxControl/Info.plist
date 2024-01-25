@@ -20,14 +20,14 @@
 	<string>1</string>
 	<key>IOKitPersonalities</key>
 	<dict>
-		<key>NVDAGPUWakeHandler</key>
+		<key>NVDAMuxControl</key>
 		<dict>
 			<key>CFBundleIdentifier</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>IOClass</key>
-			<string>NVDAGPUWakeHandler</string>
+			<string>NVDAMuxControl</string>
 			<key>IOMatchCategory</key>
-			<string>NVDAGPUWakeHandler</string>
+			<string>NVDAMuxControl</string>
 			<key>IOProviderClass</key>
 			<string>IOResources</string>
 			<key>IOResourceMatch</key>

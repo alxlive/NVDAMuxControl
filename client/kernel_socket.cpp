@@ -48,7 +48,7 @@ bool KernelSocket::connect() {
     {
         struct ctl_info info;
         memset(&info, 0, sizeof(info));
-        strncpy(info.ctl_name, "org.mklinux.nke.NVDAGPUWakeHandler", sizeof(info.ctl_name));
+        strncpy(info.ctl_name, "fr.alxlive.NVDAMuxControl", sizeof(info.ctl_name));
         if (ioctl(fd, CTLIOCGINFO, &info)) {
             perror("Could not get ID for kernel control.\n");
             ::close(fd);

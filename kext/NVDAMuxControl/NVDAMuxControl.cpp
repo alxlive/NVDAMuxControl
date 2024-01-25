@@ -18,6 +18,10 @@
 //    log show --last 24h --predicate 'senderImagePath contains "NVDAMuxControl"'
 // Unload:
 //    sudo kextunload /path/to/NVDAMuxControl.kext
+// Copy to /Library/Extensions:
+//    sudo cp -vR NVDAMuxControl.kext /Library/Extensions
+//    sudo chown -R root:wheel /Library/Extensions/NVDAMuxControl.kext
+//    sudo touch /Library/Extensions
 
 
 #include <IOKit/IOLib.h>
