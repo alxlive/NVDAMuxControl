@@ -6,7 +6,7 @@ BUILD_DIR := build
 DIST_DIR := dist
 MKDIR_P := mkdir -p
 OBJ_FILES := $(BUILD_DIR)/pywrap.o $(BUILD_DIR)/kernel_socket.o
-BRIGHTNESS_PY := brightness.py
+CLIENT_APP := NVDAMuxControlClient.py
 so_library := $(BUILD_DIR)/KernelSocketLib$(shell python3-config --extension-suffix)
 
 # This is the target that gets built when one invokes `make` (the first target
@@ -25,8 +25,8 @@ $(DIST_DIR):
 	$(MKDIR_P) $(DIST_DIR)
 
 # The brightness app depends on brightness.py and on the shared library.
-brightness_app:$(BRIGHTNESS_PY) $(so_library)
-	pyinstaller --onefile $(BRIGHTNESS_PY) --windowed --distpath $(DIST_DIR) --workpath $(BUILD_DIR) --noconfirm
+brightness_app:$(CLIENT_APP) $(so_library)
+	pyinstaller --onefile $(CLIENT_APP) --windowed --distpath $(DIST_DIR) --workpath $(BUILD_DIR) --noconfirm
 
 # The shared library depends on the object files, so make will figure out how
 # to build those first.
@@ -40,3 +40,6 @@ $(so_library):$(OBJ_FILES)
 # foo.cpp.
 $(OBJ_FILES):build/%.o:%.cpp
 	$(CXX) $(CXXFLAGS) -fPIC `python3 -m pybind11 --includes` -c $< -o $@
+
+clean:
+	rm -rf build/ dist/

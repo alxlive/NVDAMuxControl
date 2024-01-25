@@ -67,23 +67,25 @@ python3 -m venv venv
 . venv/bin/activate
 python3 -m pip install -r requirements.txt
 make
-cp -vR dist/brightness.app /Applications/
+cp -vR dist/NVDAMuxControlClient.app /Applications/
 ```
 
-Now add the client app to start automatically at login:
+The NVDAMuxControlClient.app is now available in your /Applications directory.
+
+Set it to start automatically at login:
 
 * Settings > Users & Groups > (your account) > Login Items tab
-* Drag and drop the app there from your Applications directory
+* Drag and drop the NVDAMuxControlClient there from your Applications directory
 
 Finally, give the app permissions to listen for F1/F2 keypresses:
 
 * Settings > Security & Privacy > Input Monitoring
-* Drag and drop the app there from your Applications directory, and make sure
-  its checkbox is checked.
+* Drag and drop the NVDAMuxControlClient app there from your Applications
+  directory, and make sure its checkbox is checked.
 
 Reboot.
 
-Check that the kext is running:
+Check that the kext and the client are running:
 
 ```
 kextstat | grep NVDAMuxControl

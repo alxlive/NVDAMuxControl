@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['brightness.py'],
+    ['NVDAMuxControlClient.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -21,7 +21,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='brightness',
+    name='NVDAMuxControlClient',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -37,7 +37,7 @@ exe = EXE(
 )
 app = BUNDLE(
     exe,
-    name='brightness.app',
+    name='NVDAMuxControlClient.app',
     icon=None,
     bundle_identifier=None,
 )
