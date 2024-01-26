@@ -39,11 +39,11 @@
 	<key>OSBundleLibraries</key>
 	<dict>
 		<key>com.apple.kpi.bsd</key>
-		<string>18.2</string>
+		<string>19.6</string>
 		<key>com.apple.kpi.iokit</key>
-		<string>18.2</string>
+		<string>19.6</string>
 		<key>com.apple.kpi.libkern</key>
-		<string>18.2</string>
+		<string>19.6</string>
 	</dict>
 </dict>
 </plist>
