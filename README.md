@@ -85,13 +85,19 @@ Finally, give the app permissions to listen for F1/F2 keypresses:
 
 Reboot.
 
-Check that the kext and the client are running:
+Check that the kext is running:
 
 ```
 kextstat | grep NVDAMuxControl
 ```
 
-Press Fn+F1/F2 to test if the brightness goes up and down.
+Check that the client app is running:
+
+```
+ps aux | grep NVDAMuxControlClient
+```
+
+When everything is running, press Fn+F1/F2 to test if the brightness goes up and down.
 
 ## Loading the kext manually
 
